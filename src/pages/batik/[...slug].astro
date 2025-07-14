@@ -1,0 +1,21 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content'
+import Batik from '../../layouts/Batik.astro'
+import { render } from 'astro:content'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('batik')
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: post,
+  }))
+}
+type Props = CollectionEntry<'batik'>
+
+const post = Astro.props
+const { Content } = await render(post)
+---
+
+<Batik {...post.data}>
+  <Content />
+</Batik>

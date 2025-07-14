@@ -8,9 +8,7 @@ import Card from '@/components/card/Index.astro'
 import CardHeader from '@/components/card/Header.astro'
 import CardTitle from '@/components/card/Title.astro'
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-)
+const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a.data.order)
 ---
 
 <App title="Home" description="tes">
@@ -50,10 +48,10 @@ const posts = (await getCollection('blog')).sort(
         <Card class="overflow-hidden py-0">
           <div class="md:flex">
             <div class="md:w-[calc(50%-var(--spacing)*4)]">
-              <a href={`/blog/${posts[0].id}`}>
+              <a href={`/batik/${batikList[0].id}`}>
                 <Image
-                  src={posts[0].data.heroImage!}
-                  alt={posts[0].data.title}
+                  src={batikList[0].data.heroImage!}
+                  alt={batikList[0].data.title}
                   width={600}
                   height={400}
                   class="h-64 w-full object-cover md:h-full"
@@ -61,14 +59,14 @@ const posts = (await getCollection('blog')).sort(
               </a>
             </div>
             <div class="p-8 md:w-1/2">
-              <h3 class="mb-4 text-2xl font-bold">{posts[0].data.title}</h3>
+              <h3 class="mb-4 text-2xl font-bold">{batikList[0].data.title}</h3>
               <p
                 class="mb-4 [display:-webkit-box] overflow-hidden text-justify [-webkit-box-orient:vertical] [-webkit-line-clamp:3]"
               >
-                {posts[0].data.description}
+                {batikList[0].data.description}
               </p>
               <div class="flex items-center justify-between">
-                <a href={`/blog/${posts[0].id}`} class={buttonVariants()}>
+                <a href={`/batik/${batikList[0].id}`} class={buttonVariants()}>
                   Baca Selengkapnya <ArrowRight class="ml-2 h-4 w-4" />
                 </a>
               </div>
@@ -86,12 +84,12 @@ const posts = (await getCollection('blog')).sort(
 
         <div class="mb-12 grid gap-8 md:grid-cols-1 lg:grid-cols-2">
           {
-            posts.slice(1).map(post => (
+            batikList.slice(1).map(batik => (
               <Card class="overflow-hidden pt-0 transition-[shadow_transform] hover:scale-[102%] hover:shadow-lg">
-                <a href={`/blog/${post.id}`}>
+                <a href={`/batik/${batik.id}`}>
                   <img
-                    src={post.data.heroImage.src}
-                    alt={post.data.title}
+                    src={batik.data.heroImage.src}
+                    alt={batik.data.title}
                     width={400}
                     height={300}
                     class="h-48 w-full object-cover"
@@ -99,8 +97,8 @@ const posts = (await getCollection('blog')).sort(
                 </a>
                 <CardHeader>
                   <CardTitle>
-                    <a href={`/blog/${post.id}`} class="font-bold">
-                      {post.data.title}
+                    <a href={`/batik/${batik.id}`} class="font-bold">
+                      {batik.data.title}
                     </a>
                   </CardTitle>
                 </CardHeader>

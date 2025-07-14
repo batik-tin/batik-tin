@@ -8,7 +8,7 @@ export function Header() {
   const [isVisible, setIsVisible] = useState(false)
   const [search, setSearch] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(-1)
-  const [blogs, setBlogs] = useState<Record<string, string> | null>(null)
+  const [batikList, setBatikList] = useState<Record<string, string> | null>(null)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -33,18 +33,18 @@ export function Header() {
   }, [])
 
   useEffect(() => {
-    if (isOpen && blogs === null) {
-      fetch('/blogs.json').then(response => {
-        response.json().then(setBlogs)
+    if (isOpen && batikList === null) {
+      fetch('/batikList.json').then(response => {
+        response.json().then(setBatikList)
       })
     }
   }, [isOpen])
 
   const searchLowerCase = search.toLowerCase()
   const searchResult =
-    blogs &&
+    batikList &&
     search &&
-    Object.entries(blogs).filter(([_, label]) => label.toLowerCase().includes(searchLowerCase))
+    Object.entries(batikList).filter(([_, label]) => label.toLowerCase().includes(searchLowerCase))
 
   return (
     <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
@@ -85,7 +85,7 @@ export function Header() {
                         inputRef.current?.blur()
                       } else if (event.key === 'Enter') {
                         if (selectedIndex !== -1) {
-                          location.href = `/blog/${searchResult[selectedIndex][0]}`
+                          location.href = `/batik/${searchResult[selectedIndex][0]}`
                         }
                       }
                     }
@@ -98,7 +98,7 @@ export function Header() {
                     {searchResult.map(([slug, label], index) => (
                       <a
                         key={slug}
-                        href={`/blog/${slug}`}
+                        href={`/batik/${slug}`}
                         className={selectedIndex === index ? 'font-bold' : undefined}
                       >
                         {label}

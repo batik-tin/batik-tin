@@ -1,12 +1,10 @@
 import { getCollection } from 'astro:content'
 
 export async function GET() {
-  const posts = (await getCollection('blog')).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-  )
+  const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a.data.order)
   const result: Record<string, string> = {}
 
-  posts.forEach(post => {
+  batikList.forEach(post => {
     result[post.id] = post.data.title
   })
 

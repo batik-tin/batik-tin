@@ -1,35 +1,36 @@
 ---
-import type { CollectionEntry } from 'astro:content'
 import { Image } from 'astro:assets'
 import App from '../components/App.astro'
+import { Carousel } from '@/components/Carousel'
+import type { CollectionEntry } from 'astro:content'
 
 type Props = CollectionEntry<'batik'>['data']
 
-const { title, description, heroImage } = Astro.props
+const { title, description, heroImages } = Astro.props
 ---
 
 <App title={title} description={description}>
   <div class="min-h-screen">
-    <header class="container mx-auto px-4 py-8">
-      <div class="mx-auto max-w-3xl">
+    <header class="mx-auto px-4 py-8">
+      <div class="mx-auto max-w-5xl">
         <h1 class="text-3xl leading-tight font-bold md:text-5xl">{title}</h1>
       </div>
     </header>
 
-    <div class="container mx-auto mb-12 px-4">
-      <div class="mx-auto max-w-3xl">
-        <Image
-          src={heroImage}
-          alt={title}
-          width={800}
-          height={400}
-          class="h-64 w-full rounded-lg object-cover md:h-96"
-        />
+    <div class="mx-auto mb-12 px-4">
+      <div class="mx-auto max-w-5xl">
+        {
+          heroImages.length === 1 ? (
+            <Image src={heroImages[0]} alt="" class="rounded-lg object-cover" />
+          ) : (
+            <Carousel client:load images={heroImages} />
+          )
+        }
       </div>
     </div>
 
-    <article class="container mx-auto mb-16 px-4">
-      <div class="mx-auto max-w-3xl">
+    <article class="mx-auto mb-16 px-4">
+      <div class="mx-auto max-w-5xl">
         <div
           class="prose prose-lg max-w-none text-justify [&>p:has(img)]:-mb-4 [&>p>img]:mx-auto [&>p>img]:-mb-4 [&>p>img]:rounded-lg"
         >

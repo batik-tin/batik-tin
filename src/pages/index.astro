@@ -50,7 +50,7 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
             <div class="md:w-[calc(50%-var(--spacing)*4)]">
               <a href={`/batik/${batikList[0].id}`}>
                 <Image
-                  src={batikList[0].data.heroImage!}
+                  src={batikList[0].data.heroImages[0]}
                   alt={batikList[0].data.title}
                   width={600}
                   height={400}
@@ -88,7 +88,7 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
               <Card class="overflow-hidden pt-0 transition-[shadow_transform] hover:scale-[102%] hover:shadow-lg">
                 <a href={`/batik/${batik.id}`}>
                   <img
-                    src={batik.data.heroImage.src}
+                    src={batik.data.heroImages[0].src}
                     alt={batik.data.title}
                     width={400}
                     height={300}

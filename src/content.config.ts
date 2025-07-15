@@ -8,7 +8,7 @@ const batik = defineCollection({
       title: z.string(),
       description: z.string(),
       order: z.number(),
-      heroImage: image(),
+      heroImages: z.array(image()),
     })
   },
 })

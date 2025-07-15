@@ -1,16 +1,26 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content'
+import { getCollection } from 'astro:content'
 import Batik from '../../layouts/Batik.astro'
 import { render } from 'astro:content'
 
 export async function getStaticPaths() {
   const posts = await getCollection('batik')
-  return posts.map(post => ({
-    params: { slug: post.id },
-    props: post,
-  }))
+  return posts.map(originalPost => {
+    const { data, ...remaining } = originalPost
+
+    return {
+      params: { slug: originalPost.id },
+      props: {
+        ...remaining,
+        data: {
+          heroImage: data.heroImages[0],
+          ...data,
+        },
+      },
+    }
+  })
 }
-type Props = CollectionEntry<'batik'>
+type Props = Awaited<ReturnType<typeof getStaticPaths>>[number]['props']
 
 const post = Astro.props
 const { Content } = await render(post)

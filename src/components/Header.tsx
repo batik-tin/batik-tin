@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type PropsWithChildren } from 'react'
 import { Button } from './ui/button'
 import { Search } from 'lucide-react'
+import { flushSync } from 'react-dom'
 
 export function Header({ children }: PropsWithChildren) {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -47,7 +48,7 @@ export function Header({ children }: PropsWithChildren) {
     Object.entries(batikList).filter(([_, label]) => label.toLowerCase().includes(searchLowerCase))
 
   return (
-    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
+    <header className="bg-background sticky top-0 z-50 w-full border-b">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <a href="/" className="flex items-center gap-4 space-x-2">
@@ -106,7 +107,19 @@ export function Header({ children }: PropsWithChildren) {
               </div>
             )}
 
-            <Button variant="ghost" size="sm" onClick={() => setIsOpen(o => !o)}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                requestAnimationFrame(() => {
+                  flushSync(() => {
+                    setIsOpen(o => !o)
+                  })
+
+                  inputRef.current?.focus()
+                })
+              }}
+            >
               <Search className="h-4 w-4" />
             </Button>
           </div>

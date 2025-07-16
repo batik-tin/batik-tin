@@ -1,13 +1,13 @@
 ---
 import { getCollection } from 'astro:content'
-import { Image } from 'astro:assets'
 import App from '../components/App.astro'
-import { ArrowRight } from '@lucide/astro'
-import { buttonVariants } from '@/components/Button.astro'
 import Card from '@/components/card/Index.astro'
 import CardHeader from '@/components/card/Header.astro'
 import CardTitle from '@/components/card/Title.astro'
 import { Carousel } from '@/components/Carousel'
+import SignatureButton from '@/components/SignatureButton.astro'
+
+import heroImage1 from '../assets/hero_1.jpg'
 
 import galery1 from '../assets/galery_1.jpg'
 import galery2 from '../assets/galery_2.jpg'
@@ -19,88 +19,36 @@ const batikGalery = [galery1, galery2, galery3, galery4]
 const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a.data.order)
 ---
 
-<App title="Home" description="tes">
+<App title="Home" description="Galeri Batik Tin Gundih">
   <>
     <section
-      class="flex min-h-[calc(100vh-var(--spacing)*16)] items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 text-center"
+      style={{ background: `url(${heroImage1.src}) center/cover no-repeat` }}
+      class="relative flex min-h-[calc(100vh-var(--spacing)*16)] items-center justify-center text-center"
     >
-      <div id="title" class="h-fit py-20">
-        <h1 class="mb-6 text-5xl font-bold tracking-tight md:text-6xl">
-          Galeri <span class="text-pink-700">Batik</span>
-        </h1>
-        <p class="text-muted-foreground mx-auto mb-8 max-w-2xl text-xl">
-          Temukan batik impianmu disini
-        </p>
-        <div class="flex flex-col justify-center gap-4 sm:flex-row">
-          <a
+      <div id="title" class="absolute bottom-24 h-fit">
+        <div class="flex flex-col justify-center gap-8 sm:flex-row">
+          <SignatureButton
+            tag="a"
             href="#batik"
             onclick="event.preventDefault(),document.querySelector('#batik')?.scrollIntoView({behavior:'smooth'})"
-            class={buttonVariants({ size: 'lg' })}
           >
-            Lihat Batik Kami <ArrowRight class="ml-2 h-4 w-4" />
-          </a>
-          <a href="/about" class={buttonVariants({ size: 'lg', variant: 'outline' })}>
-            Tentang Kami
-          </a>
-        </div>
-      </div>
-      <script>
-        const title = document.querySelector<HTMLElement>('#title')!
-        title.style.opacity = '0'
-        requestAnimationFrame(() => {
-          title.className += ' transition-opacity duration-[2500ms] ease-out'
-          title.removeAttribute('style')
-        })
-      </script>
-    </section>
+            Lihat Batik Kami
+          </SignatureButton>
 
-    <section id="batik" class="scroll-mt-16 py-16">
-      <div class="mx-auto max-w-5xl">
-        <div class="mb-12">
-          <h2 class="mb-4 text-3xl font-bold">Batik Terbaru</h2>
-          <p class="text-muted-foreground">Temukan batik terbaru kami</p>
+          <SignatureButton tag="a" href="/about"> Tentang Kami </SignatureButton>
         </div>
-
-        <Card class="overflow-hidden py-0">
-          <div class="md:flex">
-            <div class="md:w-[calc(50%-var(--spacing)*4)]">
-              <a href={`/batik/${batikList[0].id}`}>
-                <Image
-                  src={batikList[0].data.heroImages[0]}
-                  alt={batikList[0].data.title}
-                  width={600}
-                  height={400}
-                  class="h-64 w-full object-cover md:h-full"
-                />
-              </a>
-            </div>
-            <div class="p-8 md:w-1/2">
-              <h3 class="mb-4 text-2xl font-bold">{batikList[0].data.title}</h3>
-              <p
-                class="mb-4 [display:-webkit-box] overflow-hidden text-justify [-webkit-box-orient:vertical] [-webkit-line-clamp:3]"
-              >
-                {batikList[0].data.description}
-              </p>
-              <div class="flex items-center justify-between">
-                <a href={`/batik/${batikList[0].id}`} class={buttonVariants()}>
-                  Baca Selengkapnya <ArrowRight class="ml-2 h-4 w-4" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </Card>
       </div>
     </section>
 
-    <section class="bg-slate-50 py-16">
+    <section id="batik" class="bg-slate-50 py-16">
       <div class="mx-auto max-w-5xl">
         <div class="mb-12">
           <h2 class="mb-4 text-3xl font-bold">Daftar Batik Kami</h2>
         </div>
 
-        <div class="mb-12 grid gap-8 md:grid-cols-1 lg:grid-cols-2">
+        <div class="grid gap-8 md:grid-cols-1 lg:grid-cols-2">
           {
-            batikList.slice(1).map(batik => (
+            batikList.map(batik => (
               <Card class="overflow-hidden pt-0 transition-[shadow_transform] hover:scale-[102%] hover:shadow-lg">
                 <a href={`/batik/${batik.id}`}>
                   <img
@@ -108,8 +56,6 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
                     src={batik.data.heroImages[0].src}
                     loading="lazy"
                     alt={batik.data.title}
-                    width={400}
-                    height={300}
                     class="h-48 w-full object-cover"
                   />
                 </a>

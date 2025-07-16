@@ -1,0 +1,34 @@
+---
+import { cva } from 'class-variance-authority'
+import { cn } from '@/lib/utils'
+import type { HTMLAttributes } from 'astro/types'
+
+type Props = ({ tag?: 'button' } & HTMLAttributes<'button'>) | ({ tag: 'a' } & HTMLAttributes<'a'>)
+
+const { tag, class: className, ...props } = Astro.props
+
+export const signatureButtonWrapperVariants = cva(
+  'rounded-md border-[12px] border-[#858f9b] drop-shadow-[0_0_4px_#858f9b]',
+)
+
+export const signatureButtonVariants = cva(
+  'focus-visible:border-ring focus-visible:ring-ring/50 my-auto flex h-24 shrink-0 items-center rounded-md bg-[radial-gradient(ellipse_at_center,#827a95,#5a5575)] px-6 text-5xl font-medium whitespace-nowrap text-[#d6d412] shadow-xs outline-4 -outline-offset-2 outline-[#b4b3ba] transition-all outline-dashed hover:opacity-75 focus-visible:ring-[3px] font-["Great_Vibes"]',
+)
+---
+
+{
+  tag === 'a' ? (
+    <a class={cn(signatureButtonWrapperVariants(), 'inline-block', className)} {...props}>
+      <div class={signatureButtonVariants()}>
+        <slot />
+      </div>
+    </a>
+  ) : (
+    // @ts-ignore
+    <button class={cn(signatureButtonWrapperVariants(), className)} {...props}>
+      <div class={signatureButtonVariants()}>
+        <slot />
+      </div>
+    </button>
+  )
+}

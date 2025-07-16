@@ -20,8 +20,8 @@ import course2 from '../assets/course_2.jpg'
 
 const batikGalery = [galery1, galery2, galery3, galery4]
 const courses = {
-  Baju: course1,
-  Totebag: course2,
+  'Baju': course1,
+  'Tote Bag': course2,
 }
 
 const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a.data.order)

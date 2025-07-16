@@ -9,7 +9,7 @@ import react from '@astrojs/react'
 export default defineConfig({
   site: 'https://batik-tin.github.io',
   prefetch: {
-    defaultStrategy: 'tap',
+    defaultStrategy: 'hover',
     prefetchAll: true,
   },
   experimental: {

@@ -10,21 +10,22 @@ import type { ImageMetadata } from 'astro'
 type Props = {
   name?: string
   images: ImageMetadata[]
+  itemClass?: string
 }
 
-export function Carousel({ name, images }: Props) {
+export function Carousel({ name, images, itemClass }: Props) {
   return (
     <BaseCarousel>
       <CarouselContent>
-        {[...images, ...images, ...images].map((image, index) => (
-          <CarouselItem>
+        {images.map((image, index) => (
+          <CarouselItem key={image.src} className={itemClass}>
             <img
               src={image.src}
               width={image.width}
               height={image.height}
               style={index === 0 ? { viewTransitionName: name } : undefined}
               loading={index === 0 ? 'eager' : 'lazy'}
-              className="rounded-lg object-cover"
+              className="h-full rounded-lg object-cover"
             />
           </CarouselItem>
         ))}

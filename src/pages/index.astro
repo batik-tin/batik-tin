@@ -7,6 +7,14 @@ import { buttonVariants } from '@/components/Button.astro'
 import Card from '@/components/card/Index.astro'
 import CardHeader from '@/components/card/Header.astro'
 import CardTitle from '@/components/card/Title.astro'
+import { Carousel } from '@/components/Carousel'
+
+import galery1 from '../assets/galery_1.jpg'
+import galery2 from '../assets/galery_2.jpg'
+import galery3 from '../assets/galery_3.jpg'
+import galery4 from '../assets/galery_4.jpg'
+
+const batikGalery = [galery1, galery2, galery3, galery4]
 
 const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a.data.order)
 ---
@@ -120,6 +128,20 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
             ))
           }
         </div>
+      </div>
+    </section>
+
+    <section id="galeri" class="scroll-mt-16 py-16">
+      <div class="mx-auto max-w-5xl">
+        <div class="mb-12">
+          <h2 class="mb-4 text-3xl font-bold">Galeri</h2>
+        </div>
+
+        <Carousel
+          client:load
+          images={batikGalery}
+          itemClass="h-[min(850px,calc(100vh-var(--spacing)*16))]"
+        />
       </div>
     </section>
   </>

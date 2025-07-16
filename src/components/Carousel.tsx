@@ -16,7 +16,7 @@ type Props = {
 export function Carousel({ name, images, itemClass }: Props) {
   return (
     <div>
-      <BaseCarousel className="max-w-screen overflow-hidden">
+      <BaseCarousel className="max-w-screen overflow-hidden sm:overflow-auto">
         <div className="overflow-hidden rounded-lg">
           <CarouselContent>
             {images.map((image, index) => (

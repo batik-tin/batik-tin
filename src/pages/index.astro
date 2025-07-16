@@ -64,20 +64,18 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
                     src={batik.data.heroImages[0].src}
                     loading="lazy"
                     alt={batik.data.title}
-                    class="h-48 w-full object-cover"
+                    class="h-64 w-full object-cover"
                   />
                 </a>
-                <CardHeader>
-                  <CardTitle>
-                    <a
-                      href={`/batik/${batik.id}`}
-                      style={{ viewTransitionName: 'title-batik-' + batik.id }}
-                      class="font-bold"
-                    >
-                      {batik.data.title}
-                    </a>
-                  </CardTitle>
-                </CardHeader>
+                <CardTitle class="flex h-full text-center text-3xl font-bold">
+                  <a
+                    href={`/batik/${batik.id}`}
+                    style={{ viewTransitionName: 'title-batik-' + batik.id }}
+                    class="m-auto"
+                  >
+                    {batik.data.title}
+                  </a>
+                </CardTitle>
               </Card>
             ))
           }

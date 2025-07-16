@@ -30,7 +30,10 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
 <App title="Home" description="Galeri Batik Tin Gundih">
   <>
     <section
-      style={{ background: `url(${heroImage1.src}) center/cover no-repeat` }}
+      style={{
+        background: `url(${heroImage1.src}) center/cover no-repeat`,
+        viewTransitionName: 'about-us',
+      }}
       class="relative flex min-h-[calc(100vh-var(--spacing)*16)] items-center justify-center bg-slate-50 text-center"
     >
       <div id="title" class="absolute bottom-24 h-fit">

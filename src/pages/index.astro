@@ -4,6 +4,7 @@ import App from '../components/App.astro'
 import Card from '@/components/card/Index.astro'
 import CardHeader from '@/components/card/Header.astro'
 import CardTitle from '@/components/card/Title.astro'
+import Course from '@/components/Course'
 import { Carousel } from '@/components/Carousel'
 import SignatureButton from '@/components/SignatureButton.astro'
 
@@ -14,7 +15,14 @@ import galery2 from '../assets/galery_2.jpg'
 import galery3 from '../assets/galery_3.jpg'
 import galery4 from '../assets/galery_4.jpg'
 
+import course1 from '../assets/course_1.jpg'
+import course2 from '../assets/course_2.jpg'
+
 const batikGalery = [galery1, galery2, galery3, galery4]
+const courses = {
+  Baju: course1,
+  Totebag: course2,
+}
 
 const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a.data.order)
 ---
@@ -23,7 +31,7 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
   <>
     <section
       style={{ background: `url(${heroImage1.src}) center/cover no-repeat` }}
-      class="relative flex min-h-[calc(100vh-var(--spacing)*16)] items-center justify-center text-center"
+      class="relative flex min-h-[calc(100vh-var(--spacing)*16)] items-center justify-center bg-slate-50 text-center"
     >
       <div id="title" class="absolute bottom-24 h-fit">
         <div class="flex flex-col justify-center gap-8 sm:flex-row">
@@ -40,7 +48,7 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
       </div>
     </section>
 
-    <section id="batik" class="bg-slate-50 py-16">
+    <section id="batik" class="scroll-mt-16 py-16">
       <div class="mx-auto max-w-5xl">
         <div class="mb-12">
           <h2 class="mb-4 text-3xl font-bold">Daftar Batik Kami</h2>
@@ -77,7 +85,29 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
       </div>
     </section>
 
-    <section id="galeri" class="scroll-mt-16 py-16">
+    <section id="kursus" class="bg-slate-50 py-16">
+      <div class="mx-auto max-w-5xl">
+        <div class="mb-12">
+          <h2 class="mb-4 text-3xl font-bold">Kursus Kami</h2>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-1 lg:grid-cols-2">
+          {
+            Object.entries(courses).map(([title, image]) => (
+              <Card class="overflow-hidden pt-0 transition-[shadow_transform] hover:scale-[102%] hover:shadow-lg">
+                <Course client:load title={title} image={image} />
+
+                <CardHeader class="px-0">
+                  <CardTitle class="text-center text-3xl font-bold">{title}</CardTitle>
+                </CardHeader>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section id="galeri" class="py-16">
       <div class="mx-auto max-w-5xl">
         <div class="mb-12">
           <h2 class="mb-4 text-3xl font-bold">Galeri</h2>

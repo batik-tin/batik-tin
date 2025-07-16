@@ -4,16 +4,23 @@ import App from '../components/App.astro'
 import { Carousel } from '@/components/Carousel'
 import type { CollectionEntry } from 'astro:content'
 
-type Props = CollectionEntry<'batik'>['data']
+type Props = CollectionEntry<'batik'>['data'] & {
+  name: string
+}
 
-const { title, description, heroImages } = Astro.props
+const { name, title, description, heroImages } = Astro.props
 ---
 
 <App title={title} description={description}>
   <div class="min-h-screen">
     <header class="mx-auto px-4 py-8">
       <div class="mx-auto max-w-5xl">
-        <h1 class="text-3xl leading-tight font-bold md:text-5xl">{title}</h1>
+        <h1
+          style={{ viewTransitionName: 'title-' + name }}
+          class="text-3xl leading-tight font-bold md:text-5xl"
+        >
+          {title}
+        </h1>
       </div>
     </header>
 
@@ -21,9 +28,15 @@ const { title, description, heroImages } = Astro.props
       <div class="mx-auto max-w-5xl">
         {
           heroImages.length === 1 ? (
-            <Image src={heroImages[0]} alt="" class="rounded-lg object-cover" />
+            <Image
+              style={{ viewTransitionName: name }}
+              loading="eager"
+              src={heroImages[0]}
+              alt=""
+              class="rounded-lg object-cover"
+            />
           ) : (
-            <Carousel client:load images={heroImages} />
+            <Carousel client:load name={name} images={heroImages} />
           )
         }
       </div>

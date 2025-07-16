@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css'
+import { ClientRouter } from 'astro:transitions'
 import { SITE_TITLE } from '../consts'
 import FallbackImage from '../assets/blog-placeholder-1.jpg'
 import Footer from './Footer.astro'
@@ -48,6 +49,8 @@ const { title, description, image = FallbackImage } = Astro.props
     <meta name="title" content={title} />
     <meta name="description" content={description} />
 
+    <ClientRouter />
+
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
@@ -61,7 +64,7 @@ const { title, description, image = FallbackImage } = Astro.props
     <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
   </head>
   <body class="flex min-h-screen flex-col">
-    <Header client:load>
+    <Header client:load transition:persist="header">
       <Image src={logo} alt="Logo Batik Tin" class="h-12 w-12 rounded-full" />
       <span class="text-xl font-bold">Batik Tin</span>
     </Header>
@@ -69,6 +72,6 @@ const { title, description, image = FallbackImage } = Astro.props
     <main class="flex-1">
       <slot />
     </main>
-    <Footer />
+    <Footer transition:persist="footer" />
   </body>
 </html>

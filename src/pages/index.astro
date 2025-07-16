@@ -16,9 +16,9 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
     <section
       class="flex min-h-[calc(100vh-var(--spacing)*16)] items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 text-center"
     >
-      <div class="h-fit py-20">
+      <div id="title" class="h-fit py-20">
         <h1 class="mb-6 text-5xl font-bold tracking-tight md:text-6xl">
-          Galeri <span class="text-blue-600">Batik</span>
+          Galeri <span class="text-pink-700">Batik</span>
         </h1>
         <p class="text-muted-foreground mx-auto mb-8 max-w-2xl text-xl">
           Temukan batik impianmu disini
@@ -36,6 +36,14 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
           </a>
         </div>
       </div>
+      <script>
+        const title = document.querySelector<HTMLElement>('#title')!
+        title.style.opacity = '0'
+        requestAnimationFrame(() => {
+          title.className += ' transition-opacity duration-[2500ms] ease-out'
+          title.removeAttribute('style')
+        })
+      </script>
     </section>
 
     <section id="batik" class="scroll-mt-16 py-16">
@@ -88,7 +96,9 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
               <Card class="overflow-hidden pt-0 transition-[shadow_transform] hover:scale-[102%] hover:shadow-lg">
                 <a href={`/batik/${batik.id}`}>
                   <img
+                    style={{ viewTransitionName: 'batik-' + batik.id }}
                     src={batik.data.heroImages[0].src}
+                    loading="lazy"
                     alt={batik.data.title}
                     width={400}
                     height={300}
@@ -97,7 +107,11 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
                 </a>
                 <CardHeader>
                   <CardTitle>
-                    <a href={`/batik/${batik.id}`} class="font-bold">
+                    <a
+                      href={`/batik/${batik.id}`}
+                      style={{ viewTransitionName: 'title-batik-' + batik.id }}
+                      class="font-bold"
+                    >
                       {batik.data.title}
                     </a>
                   </CardTitle>

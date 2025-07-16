@@ -26,6 +26,6 @@ const post = Astro.props
 const { Content } = await render(post)
 ---
 
-<Batik {...post.data}>
+<Batik name={'batik-' + post.id} {...post.data}>
   <Content />
 </Batik>

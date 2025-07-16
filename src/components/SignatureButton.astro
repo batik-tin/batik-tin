@@ -8,17 +8,25 @@ type Props = ({ tag?: 'button' } & HTMLAttributes<'button'>) | ({ tag: 'a' } & H
 const { tag, class: className, ...props } = Astro.props
 
 export const signatureButtonWrapperVariants = cva(
-  'rounded-md border-[12px] border-[#858f9b] drop-shadow-[0_0_4px_#858f9b]',
+  'rounded-md border-8 border-[#858f9b] drop-shadow-[0_0_4px_#858f9b] md:border-[12px]',
 )
 
 export const signatureButtonVariants = cva(
-  'focus-visible:border-ring focus-visible:ring-ring/50 my-auto flex h-24 shrink-0 items-center rounded-md bg-[radial-gradient(ellipse_at_center,#827a95,#5a5575)] px-6 text-5xl font-medium whitespace-nowrap text-[#d6d412] shadow-xs outline-4 -outline-offset-2 outline-[#b4b3ba] transition-all outline-dashed hover:opacity-75 focus-visible:ring-[3px] font-["Great_Vibes"]',
+  'my-auto flex h-16 shrink-0 items-center justify-center rounded-md bg-[radial-gradient(ellipse_at_center,#827a95,#5a5575)] px-4 font-["Great_Vibes"] text-3xl font-medium whitespace-nowrap text-[#d6d412] shadow-xs outline-4 -outline-offset-2 outline-[#b4b3ba] transition-opacity outline-dashed hover:opacity-75 md:h-24 md:px-6 md:text-5xl',
 )
 ---
 
 {
   tag === 'a' ? (
-    <a class={cn(signatureButtonWrapperVariants(), 'inline-block', className)} {...props}>
+    <a
+      class={cn(
+        signatureButtonWrapperVariants(),
+        'inline-block',
+
+        className,
+      )}
+      {...props}
+    >
       <div class={signatureButtonVariants()}>
         <slot />
       </div>

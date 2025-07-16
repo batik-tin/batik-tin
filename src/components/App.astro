@@ -60,7 +60,7 @@ const { title, description, image = FallbackImage } = Astro.props
   <body class="flex min-h-screen flex-col">
     <Header client:load transition:persist="header">
       <Image src={logo} alt="Logo Batik Tin" class="h-12 w-12 rounded-full" />
-      <span class="text-xl font-bold">Batik Tin</span>
+      <span class="text-md font-bold whitespace-nowrap sm:text-xl">Batik Tin</span>
     </Header>
 
     <main class="flex-1">

@@ -51,13 +51,13 @@ export function Header({ children }: PropsWithChildren) {
     <header className="bg-background sticky top-0 z-50 w-full border-b">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          <a href="/" className="flex items-center gap-4 space-x-2">
+          <a href="/" className="flex shrink-0 items-center gap-4 space-x-2 sm:shrink-[unset]">
             {children}
           </a>
 
-          <div className="flex items-center">
+          <div className="flex flex-1 items-center sm:flex-[unset]">
             {isOpen && (
-              <div className="relative mr-2 ml-6 w-full sm:w-32 md:w-48 lg:w-64">
+              <div className="relative mr-2 ml-4 w-full sm:ml-auto sm:w-32 md:w-48 lg:w-64">
                 <input
                   ref={inputRef}
                   value={search}

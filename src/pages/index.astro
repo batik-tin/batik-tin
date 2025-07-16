@@ -36,8 +36,8 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
       }}
       class="relative flex min-h-[calc(100vh-var(--spacing)*16)] items-center justify-center bg-slate-50 text-center"
     >
-      <div id="title" class="absolute bottom-24 h-fit">
-        <div class="flex flex-col justify-center gap-8 sm:flex-row">
+      <div id="title" class="absolute bottom-6 h-fit md:bottom-24">
+        <div class="flex flex-col justify-center gap-8 md:flex-row md:gap-4">
           <SignatureButton
             tag="a"
             href="#batik"
@@ -46,15 +46,15 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
             Lihat Batik Kami
           </SignatureButton>
 
-          <SignatureButton tag="a" href="/about"> Tentang Kami </SignatureButton>
+          <SignatureButton tag="a" href="/about">Tentang Kami</SignatureButton>
         </div>
       </div>
     </section>
 
-    <section id="batik" class="scroll-mt-16 py-16">
+    <section id="batik" class="m-4 scroll-mt-16 py-16 sm:m-0">
       <div class="mx-auto max-w-5xl">
-        <div class="mb-12">
-          <h2 class="mb-4 text-3xl font-bold">Batik Kami</h2>
+        <div class="mb-6">
+          <h2 class="text-3xl font-bold">Batik Kami</h2>
         </div>
 
         <div class="grid gap-8 md:grid-cols-1 lg:grid-cols-2">
@@ -74,7 +74,7 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
                   <a
                     href={`/batik/${batik.id}`}
                     style={{ viewTransitionName: 'title-batik-' + batik.id }}
-                    class="m-auto"
+                    class="mx-2 my-auto sm:mx-4"
                   >
                     {batik.data.title}
                   </a>
@@ -86,10 +86,10 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
       </div>
     </section>
 
-    <section id="kursus" class="bg-slate-50 py-16">
+    <section id="kursus" class="m-4 bg-slate-50 py-16 sm:m-0">
       <div class="mx-auto max-w-5xl">
-        <div class="mb-12">
-          <h2 class="mb-4 text-3xl font-bold">Kursus Kami</h2>
+        <div class="mb-6">
+          <h2 class="text-3xl font-bold">Kursus Kami</h2>
         </div>
 
         <div class="grid gap-8 md:grid-cols-1 lg:grid-cols-2">
@@ -108,10 +108,10 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
       </div>
     </section>
 
-    <section id="galeri" class="py-16">
+    <section id="galeri" class="m-4 py-16 sm:m-0">
       <div class="mx-auto max-w-5xl">
-        <div class="mb-12">
-          <h2 class="mb-4 text-3xl font-bold">Galeri</h2>
+        <div class="mb-6">
+          <h2 class="text-3xl font-bold">Galeri</h2>
         </div>
 
         <Carousel

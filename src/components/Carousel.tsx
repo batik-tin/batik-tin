@@ -1,3 +1,4 @@
+import Autoplay from 'embla-carousel-autoplay'
 import {
   Carousel as BaseCarousel,
   CarouselItem,
@@ -15,7 +16,13 @@ type Props = {
 
 export function Carousel({ name, images, itemClass }: Props) {
   return (
-    <BaseCarousel>
+    <BaseCarousel
+      plugins={[
+        Autoplay({
+          delay: 5000,
+        }),
+      ]}
+    >
       <div className="overflow-hidden rounded-lg">
         <CarouselContent>
           {images.map((image, index) => (

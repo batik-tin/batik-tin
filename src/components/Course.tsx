@@ -18,19 +18,21 @@ export default function Course({ title, image }: Props) {
       <AlertDialogTrigger>
         <img src={image.src} loading="lazy" alt={title} className="h-[600px] w-full object-cover" />
       </AlertDialogTrigger>
-      <AlertDialogContent
-        className="m-[24px] max-h-[80vh] max-w-[80vw] overflow-hidden border-0 p-0 shadow-md"
-        style={{ height: image.height - 48, width: image.width - 48 }}
-      >
-        <AlertDialogTitle className="sr-only">{title}</AlertDialogTitle>
-        <AlertDialogCancel className="h-full w-full border-0 p-0">
-          <img
-            src={image.src}
-            loading="lazy"
-            alt={title}
-            className="block h-full w-full object-cover"
-          />
-        </AlertDialogCancel>
+      <AlertDialogContent>
+        <div
+          style={{ height: image.height, width: image.width }}
+          className="max-h-[calc(100vh-48px)] max-w-[calc(100vw-48px)] overflow-hidden rounded-md shadow-md sm:m-auto sm:max-w-lg"
+        >
+          <AlertDialogTitle className="sr-only">{title}</AlertDialogTitle>
+          <AlertDialogCancel className="h-full w-full border-0 p-0">
+            <img
+              src={image.src}
+              loading="lazy"
+              alt={title}
+              className="block h-full w-full object-cover"
+            />
+          </AlertDialogCancel>
+        </div>
       </AlertDialogContent>
     </AlertDialog>
   )

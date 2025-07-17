@@ -15,27 +15,25 @@ type Props = {
 
 export function Carousel({ name, images, itemClass }: Props) {
   return (
-    <div>
-      <BaseCarousel className="max-w-screen overflow-hidden sm:overflow-auto">
-        <div className="overflow-hidden rounded-lg">
-          <CarouselContent>
-            {images.map((image, index) => (
-              <CarouselItem key={image.src} className={itemClass}>
-                <img
-                  src={image.src}
-                  width={image.width}
-                  height={image.height}
-                  style={index === 0 ? { viewTransitionName: name } : undefined}
-                  loading={index === 0 ? 'eager' : 'lazy'}
-                  className="h-full rounded-lg object-cover"
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </div>
-        <CarouselPrevious />
-        <CarouselNext />
-      </BaseCarousel>
-    </div>
+    <BaseCarousel>
+      <div className="overflow-hidden rounded-lg">
+        <CarouselContent>
+          {images.map((image, index) => (
+            <CarouselItem key={image.src} className={itemClass}>
+              <img
+                src={image.src}
+                width={image.width}
+                height={image.height}
+                style={index === 0 ? { viewTransitionName: name } : undefined}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                className="h-full rounded-lg object-cover"
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </div>
+      <CarouselPrevious className="left-6 bg-amber-50 xl:-left-12 xl:bg-[unset]" />
+      <CarouselNext className="right-6 bg-amber-50 xl:-right-12 xl:bg-[unset]" />
+    </BaseCarousel>
   )
 }

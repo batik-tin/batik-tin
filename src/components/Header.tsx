@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type PropsWithChildren } from 'react'
+import { prefetch } from 'astro:prefetch'
 import { Button } from './ui/button'
 import { Search } from 'lucide-react'
 import { flushSync } from 'react-dom'
@@ -74,19 +75,27 @@ export function Header({ children }: PropsWithChildren) {
                   }
                   onKeyDown={event => {
                     if (searchResult && searchResult.length) {
+                      const pre = (index: number) => {
+                        prefetch(`/batik/${searchResult[index]}`)
+
+                        return index
+                      }
+
                       if (event.key === 'ArrowDown') {
                         event.preventDefault()
-                        setSelectedIndex(i => Math.min(i + 1, searchResult.length - 1))
+                        setSelectedIndex(i => pre(Math.min(i + 1, searchResult.length - 1)))
                       } else if (event.key === 'ArrowUp') {
                         event.preventDefault()
-                        setSelectedIndex(i => Math.max(i - 1, -1))
+                        setSelectedIndex(i => pre(Math.max(i - 1, -1)))
                       } else if (event.key === 'Escape') {
                         event.preventDefault()
                         setIsVisible(false)
                         inputRef.current?.blur()
                       } else if (event.key === 'Enter') {
                         if (selectedIndex !== -1) {
-                          location.href = `/batik/${searchResult[selectedIndex][0]}`
+                          document
+                            .querySelector<HTMLAnchorElement>(`#search-${selectedIndex}`)
+                            ?.click()
                         }
                       }
                     }
@@ -102,10 +111,11 @@ export function Header({ children }: PropsWithChildren) {
                           <img src={image} className="block aspect-video w-full rounded-md" />
                         </a>
                         <a
+                          id={`search-${index}`}
                           href={`/batik/${slug}`}
                           className={
                             'mt-2 block text-center lg:col-span-2 lg:mt-0' +
-                            (selectedIndex === index ? ' font-bold' : '')
+                            (selectedIndex === index ? ' underline opacity-75' : '')
                           }
                         >
                           {label}

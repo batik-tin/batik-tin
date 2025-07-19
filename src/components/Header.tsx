@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type PropsWithChildren } from 'react'
 import { Button } from './ui/button'
 import { Search } from 'lucide-react'
 import { flushSync } from 'react-dom'
+import type { BatikList } from '@/pages/batikList.json'
 
 export function Header({ children }: PropsWithChildren) {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -9,7 +10,7 @@ export function Header({ children }: PropsWithChildren) {
   const [isVisible, setIsVisible] = useState(false)
   const [search, setSearch] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(-1)
-  const [batikList, setBatikList] = useState<Record<string, string> | null>(null)
+  const [batikList, setBatikList] = useState<BatikList | null>(null)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -45,7 +46,9 @@ export function Header({ children }: PropsWithChildren) {
   const searchResult =
     batikList &&
     search &&
-    Object.entries(batikList).filter(([_, label]) => label.toLowerCase().includes(searchLowerCase))
+    Object.entries(batikList).filter(([_, [label]]) =>
+      label.toLowerCase().includes(searchLowerCase),
+    )
 
   return (
     <header className="bg-background sticky top-0 z-50 w-full border-b">
@@ -57,7 +60,7 @@ export function Header({ children }: PropsWithChildren) {
 
           <div className="flex flex-1 items-center sm:flex-[unset]">
             {isOpen && (
-              <div className="relative mr-2 ml-4 w-full sm:ml-auto sm:w-32 md:w-48 lg:w-64">
+              <div className="relative mr-2 ml-4 w-full sm:ml-auto sm:w-48 md:w-64 lg:w-96 xl:w-128">
                 <input
                   ref={inputRef}
                   value={search}
@@ -92,15 +95,22 @@ export function Header({ children }: PropsWithChildren) {
                 />
 
                 {isVisible && searchResult && searchResult.length > 0 && (
-                  <div className="absolute flex flex-col gap-2 rounded-md border bg-white px-4 py-2">
-                    {searchResult.map(([slug, label], index) => (
-                      <a
-                        key={slug}
-                        href={`/batik/${slug}`}
-                        className={selectedIndex === index ? 'font-bold' : undefined}
-                      >
-                        {label}
-                      </a>
+                  <div className="absolute flex flex-col gap-6 rounded-md border bg-white px-4 py-2 lg:gap-4">
+                    {searchResult.map(([slug, [label, image]], index) => (
+                      <div key={slug} className="lg:grid lg:grid-cols-3 lg:items-center lg:gap-3">
+                        <a href={`/batik/${slug}`}>
+                          <img src={image} className="block aspect-video w-full rounded-md" />
+                        </a>
+                        <a
+                          href={`/batik/${slug}`}
+                          className={
+                            'mt-2 block text-center lg:col-span-2 lg:mt-0' +
+                            (selectedIndex === index ? ' font-bold' : '')
+                          }
+                        >
+                          {label}
+                        </a>
+                      </div>
                     ))}
                   </div>
                 )}

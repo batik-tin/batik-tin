@@ -51,45 +51,58 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
       </div>
     </section>
 
-    <section id="batik" class="m-4 scroll-mt-16 py-16 sm:m-0">
+    <section id="batik" class="m-4 scroll-mt-16 py-16">
       <div class="mx-auto max-w-5xl">
         <div class="mb-6">
-          <h2 class="text-3xl font-bold">Batik Kami</h2>
+          <h2 class="text-center text-3xl font-bold lg:text-start">Batik Kami</h2>
         </div>
 
         <div class="grid gap-8 md:grid-cols-1 lg:grid-cols-2">
           {
-            batikList.map(batik => (
-              <Card class="overflow-hidden pt-0 transition-[shadow_transform] hover:scale-[102%] hover:shadow-lg">
-                <a href={`/batik/${batik.id}`}>
-                  <img
-                    style={{ viewTransitionName: 'batik-' + batik.id }}
-                    src={batik.data.heroImages[0].src}
-                    loading="lazy"
-                    alt={batik.data.title}
-                    class="h-64 w-full object-cover"
-                  />
-                </a>
-                <CardTitle class="flex h-full text-center text-3xl font-bold">
-                  <a
-                    href={`/batik/${batik.id}`}
-                    style={{ viewTransitionName: 'title-batik-' + batik.id }}
-                    class="mx-2 my-auto sm:mx-4"
-                  >
-                    {batik.data.title}
+            batikList.map((batik, index, arr) => {
+              const isLast = index === arr.length - 1
+              const isOdd = arr.length % 2 === 1
+              const shouldCenter = isLast && isOdd
+
+              return (
+                <Card
+                  class={
+                    'overflow-hidden pt-0 transition-[shadow_transform] hover:scale-[102%] hover:shadow-lg' +
+                    (shouldCenter
+                      ? ' lg:col-span-2 lg:mx-auto lg:w-[calc(50%-var(--spacing)*4)]'
+                      : '')
+                  }
+                >
+                  <a href={`/batik/${batik.id}`}>
+                    <img
+                      style={{ viewTransitionName: 'batik-' + batik.id }}
+                      src={batik.data.heroImages[0].src}
+                      loading="lazy"
+                      alt={batik.data.title}
+                      class="h-64 w-full object-cover"
+                    />
                   </a>
-                </CardTitle>
-              </Card>
-            ))
+                  <CardTitle class="flex h-full text-center text-3xl font-bold">
+                    <a
+                      href={`/batik/${batik.id}`}
+                      style={{ viewTransitionName: 'title-batik-' + batik.id }}
+                      class="mx-2 my-auto sm:mx-4"
+                    >
+                      {batik.data.title}
+                    </a>
+                  </CardTitle>
+                </Card>
+              )
+            })
           }
         </div>
       </div>
     </section>
 
-    <section id="kursus" class="m-4 bg-slate-50 py-16 sm:m-0">
+    <section id="kursus" class="m-4 bg-slate-50 py-16">
       <div class="mx-auto max-w-5xl">
         <div class="mb-6">
-          <h2 class="text-3xl font-bold">Kursus Kami</h2>
+          <h2 class="text-center text-3xl font-bold lg:text-start">Kursus Kami</h2>
         </div>
 
         <div class="grid gap-8 md:grid-cols-1 lg:grid-cols-2">
@@ -108,10 +121,10 @@ const batikList = (await getCollection('batik')).sort((a, b) => b.data.order - a
       </div>
     </section>
 
-    <section id="galeri" class="m-4 py-16 sm:m-0">
+    <section id="galeri" class="m-4 py-16">
       <div class="mx-auto max-w-5xl">
         <div class="mb-6">
-          <h2 class="text-3xl font-bold">Galeri</h2>
+          <h2 class="text-center text-3xl font-bold lg:text-start">Galeri</h2>
         </div>
 
         <Carousel

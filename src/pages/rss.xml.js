@@ -1,12 +1,11 @@
 import rss from '@astrojs/rss'
 import { getCollection } from 'astro:content'
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
 
 export async function GET(context) {
   const posts = await getCollection('batik')
   return rss({
-    title: SITE_TITLE,
-    description: SITE_DESCRIPTION,
+    title: 'Batik Tin Gundih',
+    description: 'Galeri Batik Tin Gundih Surabaya',
     site: context.site,
     items: posts.map(post => ({
       ...post.data,

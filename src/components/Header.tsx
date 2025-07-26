@@ -53,7 +53,7 @@ export function Header({ children }: PropsWithChildren) {
 
   return (
     <header className="bg-background sticky top-0 z-50 w-full border-b">
-      <div className="container mx-auto px-4">
+      <div className="mx-auto max-w-5xl px-4 lg:p-0">
         <div className="flex h-16 items-center justify-between">
           <a href="/" className="flex shrink-0 items-center gap-4 space-x-2 sm:shrink-[unset]">
             {children}
@@ -139,6 +139,7 @@ export function Header({ children }: PropsWithChildren) {
                   inputRef.current?.focus()
                 })
               }}
+              className="ml-auto"
             >
               <Search className="h-4 w-4" />
             </Button>
